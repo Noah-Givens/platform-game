@@ -107,9 +107,8 @@ class projectile(object):
 
 
 class enemy(object):
-    walkRight = [pygame.image.load('R1E.png'), pygame.image.load('R2E.png'), pygame.image.load('R3E.png'), pygame.image.load('R4E.png'), pygame.image.load('R5E.png'), pygame.image.load('R6E.png'), pygame.image.load('R7E.png'), pygame.image.load('R8E.png'), pygame.image.load('R9E.png'), pygame.image.load('R10E.png'), pygame.image.load('R11E.png')]
-    walkLeft = [pygame.image.load('L1E.png'), pygame.image.load('L2E.png'), pygame.image.load('L3E.png'), pygame.image.load('L4E.png'), pygame.image.load('L5E.png'), pygame.image.load('L6E.png'), pygame.image.load('L7E.png'), pygame.image.load('L8E.png'), pygame.image.load('L9E.png'), pygame.image.load('L10E.png'), pygame.image.load('L11E.png')]
-
+    walkRight=loadImages('Dragon',1,100,100)
+    walkLeft=loadImages('Dragon',0,100,100)
     def __init__(self, x, y, width, height, end):
         self.x = x
         self.y = y
@@ -126,14 +125,14 @@ class enemy(object):
     def draw(self,win):
         self.move()
         if self.visible:
-            if self.walkCount + 1 >= 33:
+            if self.walkCount + 1 >= 27:
                 self.walkCount = 0
 
             if self.vel > 0:
-                win.blit(self.walkRight[self.walkCount //3], (self.x, self.y))
+                win.blit(self.walkRight[self.walkCount //9], (self.x, self.y))
                 self.walkCount += 1
             else:
-                win.blit(self.walkLeft[self.walkCount //3], (self.x, self.y))
+                win.blit(self.walkLeft[self.walkCount //9], (self.x, self.y))
                 self.walkCount += 1
 
             pygame.draw.rect(win, (255,0,0), (self.hitbox[0], self.hitbox[1] - 20, 50, 10))
@@ -179,7 +178,7 @@ def redrawGameWindow():
 #mainloop
 font = pygame.font.SysFont('comicsans', 30, True)
 man = player(200, 250, 64,64)
-goblin = enemy(100, 300, 64, 64, 450)
+goblin = enemy(100, 50, 64, 64, 450)
 shootLoop = 0
 bullets = []
 run = True
